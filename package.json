@@ -4,10 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "http-server ./src -p 8000",
+    "start": "http-server ./ -p 8000",
     "build": "npx tailwindcss -i ./src/css/input.css -o ./dist/css/main.css --minify",
     "watch": "npx tailwindcss -i ./src/css/input.css -o ./dist/css/main.css --watch",
-    "dev": "npm run watch && http-server ./src -p 3000"
+    "dev": "npm run watch && http-server ./ -p 3000"
   },
   "keywords": [],
   "author": "",
