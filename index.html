@@ -11,9 +11,9 @@
         Radio System Server
       </h1>
 
-      <div class="container grid grid-cols-9 grid-rows-1 my-12 gap-4">
+      <div class="container grid grid-cols-11 grid-rows-1 my-12 gap-4">
         <!-- Radio Marine No.1 -->
-        <div class="grid col-span-4 outline outline-1 outline-slate-700 p-4">
+        <div class="grid col-span-5 outline outline-1 outline-slate-700 p-4">
           <h2 class="text-md text-slate-600 font-bold uppercase">
             VHF Marine Radio No.1
           </h2>
@@ -21,6 +21,70 @@
             Radio Display
           </h3>
 
+          <div class="grid grid-cols-5 grid-rows-1 gap-2 w-full my-4">
+            <select
+              name="select-ch-1"
+              id="select-ch-1"
+              class="block bg-slate-200 border w-full rounded-full"
+            >
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="6">6</option>
+              <option value="16" selected>16</option>
+              <option value="70">70</option>
+            </select>
+
+            <select
+              name="select-radio-status-1"
+              id="select-radio-status-1"
+              class="block bg-slate-200 border w-full rounded-full"
+            >
+              <option value="ON">ON</option>
+              <option value="OFF">OFF</option>
+            </select>
+
+            <div>
+              <label
+                for="rx-range-1"
+                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                >RX Level</label
+              >
+              <input
+                id="rx-range-1"
+                type="range"
+                min="0"
+                max="100"
+                value="0"
+                step="1"
+                class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700"
+              />
+            </div>
+            <div>
+              <label
+                for="power-range-1"
+                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                >Power Level</label
+              >
+              <input
+                id="power-range-1"
+                type="range"
+                min="0"
+                max="100"
+                value="0"
+                step="1"
+                class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700"
+              />
+            </div>
+
+            <select
+              name="select-power-squelch-status-1"
+              id="select-power-squelch-status-1"
+              class="block bg-slate-200 border w-full rounded-full"
+            >
+              <option value="ON">ON</option>
+              <option value="OFF">OFF</option>
+            </select>
+          </div>
           <div class="grid grid-cols-5 grid-rows-1 gap-2">
             <div
               class="flex items-center justify-center flex-col gap-4 min-h-[130px] outline outline-1 py-4"
@@ -42,7 +106,7 @@
               class="flex items-center justify-center flex-col gap-4 min-h-[130px] outline outline-1 py-4"
             >
               <div class="p-9 status-on rounded">
-                <span id="radio-status">ON</span>
+                <span id="radio-status-1">ON</span>
               </div>
               <p
                 class="text-sm text-center text-slate-500 font-semibold uppercase"
@@ -57,15 +121,15 @@
                 class="flex flex-col flex-nowrap justify-end w-12 h-32 bg-gray-200 rounded overflow-hidden dark:bg-gray-700"
               >
                 <div
-                  class="bg-red-600 overflow-hidden text-center"
+                  class="bg-red-600 overflow-hidden text-center transition-all ease-linear duration-300"
                   role="progressbar"
-                  style="height: 71%"
-                  aria-valuenow="71"
+                  style="height: 0%"
+                  aria-valuenow="0"
                   aria-valuemin="0"
                   aria-valuemax="100"
-                  id="rx-level-bar"
+                  id="rx-level-bar-1"
                 >
-                  <span class="text-white rx-level-value">71</span>
+                  <span class="text-white" id="rx-level-value-1">0</span>
                 </div>
               </div>
               <p
@@ -81,15 +145,15 @@
                 class="flex flex-col flex-nowrap justify-end w-12 h-32 bg-gray-200 rounded overflow-hidden dark:bg-gray-700"
               >
                 <div
-                  class="bg-red-600 overflow-hidden text-center"
+                  class="bg-red-600 overflow-hidden text-center transition-all ease-linear duration-300"
                   role="progressbar"
-                  style="height: 52%"
-                  aria-valuenow="52"
+                  style="height: 0%"
+                  aria-valuenow="0"
                   aria-valuemin="0"
                   aria-valuemax="100"
-                  id="power-level-bar"
+                  id="power-level-bar-1"
                 >
-                  <span class="text-white" id="power-level-value">52</span>
+                  <span class="text-white" id="power-level-value-1">52</span>
                 </div>
               </div>
               <p
@@ -111,6 +175,7 @@
                 <button
                   class="status-on px-7 py-1 rounded-md shadow focus:shadow-md"
                   type="button"
+                  id="power-squelch-1"
                 >
                   ON
                 </button>
@@ -125,6 +190,7 @@
                 <button
                   class="status-on px-7 py-1 rounded-md shadow focus:shadow-md"
                   type="button"
+                  id="power-squelch-1"
                 >
                   ON
                 </button>
@@ -345,13 +411,15 @@
         </div>
 
         <!-- Timer -->
-        <div class="grid grid-rows-2 grid-cols-1 gap-2">
+        <div class="grid grid-rows-2 grid-cols-1 col-span-1 gap-2">
           <div
             class="flex items-center justify-center flex-col gap-4 min-h-[130px] outline outline-1 py-2"
           >
             <h3 class="text-sm text-slate-500 font-semibold uppercase my-2">
               Local Time
             </h3>
+
+            <p id="local-time" class="text-center text-slate-700"></p>
           </div>
           <div
             class="flex items-center justify-center flex-col gap-4 min-h-[130px] outline outline-1 py-2"
@@ -359,11 +427,13 @@
             <h3 class="text-sm text-slate-500 font-semibold uppercase my-2">
               Gmt Time
             </h3>
+
+            <p id="gmt-time" class="text-center text-slate-700"></p>
           </div>
         </div>
 
         <!-- Radio Marine No.2 -->
-        <div class="grid col-span-4 outline outline-1 outline-slate-700 p-4">
+        <div class="grid col-span-5 outline outline-1 outline-slate-700 p-4">
           <h2 class="text-md text-slate-600 font-bold uppercase">
             VHF Marine Radio No.2 - dsc
           </h2>
@@ -371,13 +441,78 @@
             Radio Display
           </h3>
 
+          <div class="grid grid-cols-5 grid-rows-1 gap-2 w-full my-4">
+            <select
+              name="select-ch-2"
+              id="select-ch-2"
+              class="block bg-slate-200 border w-full rounded-full"
+            >
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="6">6</option>
+              <option value="16">16</option>
+              <option value="70" selected>70</option>
+            </select>
+
+            <select
+              name="select-radio-status-2"
+              id="select-radio-status-2"
+              class="block bg-slate-200 border w-full rounded-full"
+            >
+              <option value="ON">ON</option>
+              <option value="OFF">OFF</option>
+            </select>
+
+            <div>
+              <label
+                for="rx-range-2"
+                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                >RX Level</label
+              >
+              <input
+                id="rx-range-2"
+                type="range"
+                min="0"
+                max="100"
+                value="0"
+                step="1"
+                class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700"
+              />
+            </div>
+            <div>
+              <label
+                for="power-range-2"
+                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                >Power Level</label
+              >
+              <input
+                id="power-range-2"
+                type="range"
+                min="0"
+                max="100"
+                value="0"
+                step="1"
+                class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700"
+              />
+            </div>
+
+            <select
+              name="select-power-squelch-status-2"
+              id="select-power-squelch-status-2"
+              class="block bg-slate-200 border w-full rounded-full"
+            >
+              <option value="ON">ON</option>
+              <option value="OFF">OFF</option>
+            </select>
+          </div>
+
           <div class="grid grid-cols-5 grid-rows-1 gap-2">
             <div
               class="flex items-center justify-center flex-col gap-4 min-h-[130px] outline outline-1 py-4"
             >
               <h1
                 class="text-slate-700 font-bold text-6xl uppercase"
-                id="channel-number-1"
+                id="channel-number-2"
               >
                 70
               </h1>
@@ -392,7 +527,7 @@
               class="flex items-center justify-center flex-col gap-4 min-h-[130px] outline outline-1 py-4"
             >
               <div class="p-9 status-on rounded">
-                <span id="radio-status">ON</span>
+                <span id="radio-status-2">ON</span>
               </div>
               <p
                 class="text-sm text-center text-slate-500 font-semibold uppercase"
@@ -407,15 +542,15 @@
                 class="flex flex-col flex-nowrap justify-end w-12 h-32 bg-gray-200 rounded overflow-hidden dark:bg-gray-700"
               >
                 <div
-                  class="bg-red-600 overflow-hidden text-center"
+                  class="bg-red-600 overflow-hidden text-center transition-all ease-linear duration-300"
                   role="progressbar"
-                  style="height: 71%"
-                  aria-valuenow="71"
+                  style="height: 0%"
+                  aria-valuenow="0"
                   aria-valuemin="0"
                   aria-valuemax="100"
-                  id="rx-level-bar"
+                  id="rx-level-bar-2"
                 >
-                  <span class="text-white rx-level-value">71</span>
+                  <span class="text-white" id="rx-level-value-2">0</span>
                 </div>
               </div>
               <p
@@ -431,15 +566,15 @@
                 class="flex flex-col flex-nowrap justify-end w-12 h-32 bg-gray-200 rounded overflow-hidden dark:bg-gray-700"
               >
                 <div
-                  class="bg-red-600 overflow-hidden text-center"
+                  class="bg-red-600 overflow-hidden text-center transition-all ease-linear duration-300"
                   role="progressbar"
-                  style="height: 52%"
-                  aria-valuenow="52"
+                  style="height: 0%"
+                  aria-valuenow="0"
                   aria-valuemin="0"
                   aria-valuemax="100"
-                  id="power-level-bar"
+                  id="power-level-bar-2"
                 >
-                  <span class="text-white" id="power-level-value">52</span>
+                  <span class="text-white" id="power-level-value-2">0</span>
                 </div>
               </div>
               <p
@@ -461,6 +596,7 @@
                 <button
                   class="status-on px-7 py-1 rounded-md shadow focus:shadow-md"
                   type="button"
+                  id="power-squelch-2"
                 >
                   ON
                 </button>
@@ -475,6 +611,7 @@
                 <button
                   class="status-on px-7 py-1 rounded-md shadow focus:shadow-md"
                   type="button"
+                  id="power-squelch-2"
                 >
                   ON
                 </button>
